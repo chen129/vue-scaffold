@@ -1,14 +1,21 @@
 <template>
-    <div id="app"></div>
+    <div id="app">
+        <index></index>
+    </div>
 </template>
 
 <script>
-    export default {
+    import Index from './view/index.vue'
 
+    export default {
+        name: 'app',
+        components: {
+            Index
+        }
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="less" module>
     .app {
     }
 </style>
