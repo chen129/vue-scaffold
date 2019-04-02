@@ -1,8 +1,9 @@
-const path = require('path')
+const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const autoprefixer = require('autoprefixer')
 
 module.exports = (env, argv) => {
@@ -87,9 +88,12 @@ module.exports = (env, argv) => {
                 template: './public/index.html'
             }),
             new MiniCssExtractPlugin({
-                filename: '[name].[hash].css'
+                filename: '[name].[hash].min.css',
+                chunkFilename: "[id].[hash].min.css"
             }),
-            autoprefixer
+            autoprefixer,
+            new webpack.HotModuleReplacementPlugin(),
+            new OptimizeCSSAssetsPlugin({})
         ],
         resolve: {
             alias: {
