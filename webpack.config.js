@@ -3,6 +3,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const autoprefixer = require('autoprefixer')
 
 module.exports = (env, argv) => {
     const devMode = argv.mode !== 'production'
@@ -37,13 +38,16 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.css$/,
+                    exclude: /node_modules/,
                     use: [
                         'vue-style-loader',
-                        'css-loader'
+                        'css-loader',
+                        'postcss-loader'
                     ]
                 },
                 {
                     test: /\.less$/,
+                    exclude: /node_modules/,
                     use: [
                         devMode
                             ? 'vue-style-loader'
@@ -51,20 +55,22 @@ module.exports = (env, argv) => {
                         {
                             loader: 'css-loader',
                             options: {
-                                // 开启 CSS Modules
+                                sourceMap: true,
                                 modules: true,
-                                // 自定义生成的类名
                                 localIdentName: '[local]_[hash:base64:8]'
                             }
                         },
                         {
                             loader: 'px2rem-loader',
                             options: {
-                                remUni: 24,
+                                remUni: 75,
                                 remPrecision: 8
                             }
                         },
-                        'less-loader'
+                        'postcss-loader',
+                        {
+                            loader: 'less-loader'
+                        }
                     ]
                 },
                 {
@@ -82,7 +88,8 @@ module.exports = (env, argv) => {
             }),
             new MiniCssExtractPlugin({
                 filename: '[name].[hash].css'
-            })
+            }),
+            autoprefixer
         ],
         resolve: {
             alias: {

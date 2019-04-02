@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './app.vue'
 import router from './router'
 
+import './less/index.less'
+
 Vue.config.productionTip = false
 
 new Vue({
