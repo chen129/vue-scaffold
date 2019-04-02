@@ -1,3 +1,4 @@
+const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const CleanWebpackPlugin = require('clean-webpack-plugin')
@@ -17,6 +18,19 @@ module.exports = (env, argv) => {
         },
         module: {
             rules: [
+                {
+                    test: /\.m?js$/,
+                    exclude: file => (
+                        /node_modules/.test(file) &&
+                        !/\.vue\.js/.test(file)
+                    ),
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env']
+                        }
+                    }
+                },
                 {
                     test: /\.html$/,
                     use: 'html-loader'
