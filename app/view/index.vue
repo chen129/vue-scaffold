@@ -6,15 +6,28 @@
 
 <script>
     export default {
-        name: 'index'
+        name: 'index',
+        mounted() {
+            this.getList()
+                .then(res => {
+                    console.log(res)
+                })
+        },
+        methods: {
+            getList() {
+                return new Promise(((resolve, reject) => {
+                    resolve(123)
+                }))
+            }
+        }
     }
 </script>
 
 <style lang="less" module>
     .index {
+        width: 375px;
         background-color: red;
         h1 {
-            width: 750px;
             font-size: 24px;
             color: #333;
         }

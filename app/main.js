@@ -5,6 +5,7 @@ import router from './router'
 import './less/index.less'
 
 Vue.config.productionTip = false
+Vue.config.devtools = false
 
 new Vue({
     router,

@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const autoprefixer = require('autoprefixer')
@@ -88,9 +88,10 @@ module.exports = (env, argv) => {
                 template: './public/index.html'
             }),
             new MiniCssExtractPlugin({
-                filename: '[name].[hash].min.css',
-                chunkFilename: "[id].[hash].min.css"
+                filename: 'public/css/[name].[hash].min.css',
+                chunkFilename: "public/css/[id].[hash].min.css"
             }),
+            new CleanWebpackPlugin(),
             autoprefixer,
             new webpack.HotModuleReplacementPlugin(),
             new OptimizeCSSAssetsPlugin({})
@@ -101,8 +102,9 @@ module.exports = (env, argv) => {
             }
         },
         output: {
-            filename: '[name].[hash].min.js',
-            path: __dirname + '/dist'
+            filename: 'public/js/[name].[hash].min.js',
+            path: __dirname + '/dist',
+            chunkFilename: 'public/js/chunks-[id].[hash].min.js'
         }
     }
 }
