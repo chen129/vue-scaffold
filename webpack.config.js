@@ -8,6 +8,25 @@ const autoprefixer = require('autoprefixer')
 
 module.exports = (env, argv) => {
     const devMode = argv.mode !== 'production'
+    const plugins = [
+        new VueLoaderPlugin(),
+        new HtmlWebpackPlugin({
+            template: './public/index.html'
+        }),
+        autoprefixer,
+        new webpack.HotModuleReplacementPlugin(),
+        new OptimizeCSSAssetsPlugin({})
+    ]
+
+    if (!devMode) {
+        plugins.push(
+            new MiniCssExtractPlugin({
+                filename: 'public/css/[name].[hash].min.css',
+                chunkFilename: "public/css/[id].[hash].min.css"
+            }),
+            new CleanWebpackPlugin()
+        )
+    }
 
     return {
         entry: {
@@ -64,7 +83,7 @@ module.exports = (env, argv) => {
                         {
                             loader: 'px2rem-loader',
                             options: {
-                                remUni: 75,
+                                remUnit: 75,
                                 remPrecision: 8
                             }
                         },
@@ -82,27 +101,14 @@ module.exports = (env, argv) => {
                 }
             ]
         },
-        plugins: [
-            new VueLoaderPlugin(),
-            new HtmlWebpackPlugin({
-                template: './public/index.html'
-            }),
-            new MiniCssExtractPlugin({
-                filename: 'public/css/[name].[hash].min.css',
-                chunkFilename: "public/css/[id].[hash].min.css"
-            }),
-            new CleanWebpackPlugin(),
-            autoprefixer,
-            new webpack.HotModuleReplacementPlugin(),
-            new OptimizeCSSAssetsPlugin({})
-        ],
+        plugins,
         resolve: {
             alias: {
                 'vue$': 'vue/dist/vue.esm.js'
             }
         },
         output: {
-            filename: 'public/js/[name].[hash].min.js',
+            filename: devMode ? '[name].js' : 'public/js/[name].[hash].min.js',
             path: __dirname + '/dist',
             chunkFilename: 'public/js/chunks-[id].[hash].min.js'
         }

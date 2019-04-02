@@ -1,6 +1,7 @@
 <template>
     <div :class="$style.index">
-        <h1>vue</h1>
+        <h1>vuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevue</h1>
+        <p>vuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevue</p>
     </div>
 </template>
 
@@ -24,12 +25,20 @@
 </script>
 
 <style lang="less" module>
+    @import "../less/mixins";
+
     .index {
-        width: 375px;
-        background-color: red;
+        width: 100%;
+        background-color: #f5f5f5;
+        .border(red, 20px);
         h1 {
-            font-size: 24px;
-            color: #333;
+            font-size: 30px;
+            line-height: 3em;
+            color: #666;
+            text-align: center;
+        }
+        p {
+            .line-overflow(1);
         }
     }
 </style>

@@ -1,0 +1,115 @@
+@import "theme";
+
+.media-setting(@width-height: width) {
+  @media (min-resolution: 2dppx) {
+    @{width-height}: 200%;
+    transform: scale(1 / 2);
+  }
+  @media (min-resolution: 3dppx) {
+    @{width-height}: 300%;
+    transform: scale(1 / 3);
+  }
+}
+
+.border-bottom(@color: @theme-border-color, @style: solid) {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 1Px @style @color;
+    transform-origin: 0 bottom;
+    pointer-events: none;
+    .media-setting();
+  }
+}
+
+.border-top(@color: @theme-border-color, @style: solid) {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-top: 1Px @style @color;
+    transform-origin: 0 top;
+    pointer-events: none;
+    .media-setting();
+  }
+}
+
+.border-left(@color: @theme-border-color, @style: solid) {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 1Px @style @color;
+    transform-origin: left 0;
+    pointer-events: none;
+    .media-setting(height);
+  }
+}
+
+.border-right(@color: @theme-border-color, @style: solid) {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-right: 1Px @style @color;
+    transform-origin: right 0;
+    pointer-events: none;
+    .media-setting(height);
+  }
+}
+
+.border(@color: @theme-border-color, @radius: 0, @style: solid) {
+  position: relative;
+  border-radius: @radius;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1Px @style @color;
+    border-radius: @radius;
+    transform-origin: 0 0;
+    pointer-events: none;
+    @media (min-resolution: 2dppx) {
+      width: 200%;
+      height: 200%;
+      border-radius: @radius * 2;
+      transform: scale(1 / 2);
+    }
+    @media (min-resolution: 3dppx) {
+      width: 300%;
+      height: 300%;
+      border-radius: @radius * 3;
+      transform: scale(1 / 3);
+    }
+  }
+}
+
+.text-overflow() {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.line-overflow(@line) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: @line;
+  /* autoprefixer:off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer:on */
+}
