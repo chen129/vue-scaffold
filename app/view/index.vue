@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.index">
         <h1>vuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevue</h1>
-        <p>vuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevuevue</p>
+        <p>vue vue vue vue vue vue vuevuevuevue vuevuevue vuevuevue vuevuevuevuev uevue vuevuevue vuev uevue</p>
     </div>
 </template>
 
@@ -36,6 +36,7 @@
             line-height: 3em;
             color: #666;
             text-align: center;
+            .text-overflow();
         }
         p {
             .line-overflow(1);
